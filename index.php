@@ -1,12 +1,14 @@
 First Release
 
 <?
-$url = parse_url(getenv('DATABASE_URL'));
-$dsn = sprintf('pgsql:host=%s;dbname=%s', $url['host'], substr($url['path'], 1));
-$pdo = new PDO($dsn, $url['user'], $url['pass']);
+echo 'phpのテストです。<br>';
 
+$dbinfo = parse_url(getenv('DATABASE_URL'));
 
-$stmt = $pdo->prepare("SELECT * FROM user_tb");
-$stmt->execute([$user1]);
-$result = $stmt->fetch();
+$dsn = 'pgsql:host=' . $dbinfo['host'] . ';dbname=' . substr($dbinfo['path'], 1);
+
+$pdo = new PDO($dsn, $dbinfo['user'], $dbinfo['pass']);
+var_dump($pdo->getAttribute(PDO::ATTR_SERVER_VERSION));
+
+phpinfo();
 ?>
